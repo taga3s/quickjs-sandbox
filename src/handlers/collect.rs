@@ -19,13 +19,13 @@ pub async fn collect_handler(
     let result = sqlx::query_as!(
         JSCode,
         r#"
-        select 
-          code 
-        from 
-          js_code 
-        where 
-          hashed_code = ?
-      "#,
+            select 
+                code 
+            from 
+                js_code 
+            where 
+                hashed_code = ?
+        "#,
         &hashed_code
     )
     .fetch_one(&state.pool)
