@@ -1,21 +1,13 @@
-use axum::{routing::get, Router};
+use axum::{
+    routing::{get, post},
+    Router,
+};
 use js_playground::handlers::healthz::healthz_handler;
+use js_playground::{db::state::AppState, handlers::share::share_handler};
 use sqlx::mysql::MySqlPoolOptions;
-use sqlx::{MySql, Pool};
 use tower_http::trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer};
 use tracing::Level;
 use tracing_subscriber;
-
-#[derive(Debug, Clone)]
-pub struct AppState {
-    pub pool: Pool<MySql>,
-}
-
-impl AppState {
-    pub fn new(pool: Pool<MySql>) -> Self {
-        Self { pool }
-    }
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -33,7 +25,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
 
     let app = Router::new()
-        .route("/healthz", get(healthz_handler))
+        .route("/v1/healthz", get(healthz_handler))
+        .route("/v1/share", post(share_handler))
         .layer(
             TraceLayer::new_for_http()
                 .make_span_with(DefaultMakeSpan::new().level(Level::DEBUG))
