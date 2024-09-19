@@ -2,8 +2,10 @@ use axum::{
     routing::{get, post},
     Router,
 };
-use js_playground::handlers::healthz::healthz_handler;
-use js_playground::{db::state::AppState, handlers::share::share_handler};
+use js_playground::db::state::AppState;
+use js_playground::handlers::{
+    collect::collect_handler, healthz::healthz_handler, share::share_handler,
+};
 use sqlx::mysql::MySqlPoolOptions;
 use tower_http::trace::{DefaultMakeSpan, DefaultOnRequest, DefaultOnResponse, TraceLayer};
 use tracing::Level;
@@ -27,6 +29,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let app = Router::new()
         .route("/v1/healthz", get(healthz_handler))
         .route("/v1/share", post(share_handler))
+        .route("/v1/collect/:hashed_code", get(collect_handler))
         .layer(
             TraceLayer::new_for_http()
                 .make_span_with(DefaultMakeSpan::new().level(Level::DEBUG))
