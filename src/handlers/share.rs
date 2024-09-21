@@ -5,7 +5,7 @@ use crate::{db::state::AppState, utils::hash};
 pub async fn share_handler(
     State(state): State<AppState>,
     body: String,
-) -> Result<impl IntoResponse, String> {
+) -> Result<impl IntoResponse, StatusCode> {
     let code: Option<String> = body.parse().ok();
     let hashed_code = hash::calculate(&code).to_string();
 

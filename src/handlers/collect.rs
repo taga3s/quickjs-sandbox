@@ -15,7 +15,7 @@ struct JSCode {
 pub async fn collect_handler(
     State(state): State<AppState>,
     Path(hashed_code): Path<String>,
-) -> Result<impl IntoResponse, String> {
+) -> Result<impl IntoResponse, StatusCode> {
     let result = sqlx::query_as!(
         JSCode,
         r#"
@@ -33,7 +33,7 @@ pub async fn collect_handler(
 
     let code = match result {
         Ok(row) => Ok(row.code),
-        Err(_) => Err((StatusCode::NOT_FOUND, "Not Found".to_string())),
+        Err(_) => Err((StatusCode::NOT_FOUND, "Not Found".to_string()).into_response()),
     };
 
     Ok(code.into_response())
