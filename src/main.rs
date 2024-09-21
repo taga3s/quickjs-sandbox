@@ -13,23 +13,22 @@ use tracing_subscriber;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    dotenvy::dotenv().unwrap();
+    init_app();
 
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
-        .with_ansi(true)
-        .init();
-
-    let uri = std::env::var("DATABASE_URL")?;
+    let url = std::env::var("DATABASE_URL").expect("DATABASE_URL is undefined.");
     let pool = MySqlPoolOptions::new()
-        .max_connections(4)
-        .connect(&uri)
+        .max_connections(12)
+        .connect(&url)
         .await?;
 
+    let healthz_router = Router::new().route("/", get(healthz_handler));
+    let share_router = Router::new().route("/", post(share_handler));
+    let collect_router = Router::new().route("/:hashed_code", get(collect_handler));
+
     let app = Router::new()
-        .route("/v1/healthz", get(healthz_handler))
-        .route("/v1/share", post(share_handler))
-        .route("/v1/collect/:hashed_code", get(collect_handler))
+        .nest("/v1/healthz", healthz_router)
+        .nest("/v1/share", share_router)
+        .nest("/v1/collect", collect_router)
         .layer(
             TraceLayer::new_for_http()
                 .make_span_with(DefaultMakeSpan::new().level(Level::DEBUG))
@@ -38,8 +37,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .with_state(AppState::new(pool));
 
-    let listener = tokio::net::TcpListener::bind("localhost:8080").await?;
+    let addr = init_addr();
+    let listener = tokio::net::TcpListener::bind(addr).await?;
     axum::serve(listener, app).await?;
 
     Ok(())
+}
+
+pub fn init_app() {
+    dotenvy::dotenv().ok();
+
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::DEBUG)
+        .with_ansi(true)
+        .init();
+}
+
+pub fn init_addr() -> String {
+    let host = std::env::var("HOST").expect("HOST is undefined.");
+    let port = std::env::var("PORT").expect("PORT is undefined.");
+    format!("{}:{}", host, port)
 }
