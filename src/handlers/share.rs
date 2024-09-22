@@ -2,6 +2,11 @@ use axum::{extract::State, http::StatusCode, response::IntoResponse};
 
 use crate::{db::state::AppState, utils::hash};
 
+#[derive(sqlx::FromRow)]
+struct JSCode {
+    hashed_code: String,
+}
+
 pub async fn share_handler(
     State(state): State<AppState>,
     body: String,
@@ -9,10 +14,11 @@ pub async fn share_handler(
     let code: Option<String> = body.parse().ok();
     let hashed_code = hash::calculate(&code).to_string();
 
-    let hashed_code_existed = sqlx::query!(
+    let jscode_already_shared = sqlx::query_as!(
+        JSCode,
         r#"
             select 
-                (1) as existed
+                hashed_code
             from 
                 js_code 
             where 
@@ -24,8 +30,9 @@ pub async fn share_handler(
     .await
     .map_err(|e| (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()));
 
-    if let Ok(_) = hashed_code_existed {
-        return Ok(hashed_code);
+    match jscode_already_shared {
+        Ok(jscode) => return Ok(jscode.hashed_code),
+        Err(_) => {}
     }
 
     let _ = sqlx::query!(

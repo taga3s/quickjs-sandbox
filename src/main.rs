@@ -56,5 +56,6 @@ pub fn init_app() {
 pub fn init_addr() -> String {
     let host = std::env::var("HOST").expect("HOST is undefined.");
     let port = std::env::var("PORT").expect("PORT is undefined.");
+
     format!("{}:{}", host, port)
 }
