@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'docs/openapi.yaml'
+      - 'server/docs/openapi.yaml'
 
 jobs:
   build:
@@ -20,10 +20,10 @@ jobs:
         uses: Legion2/swagger-ui-action@v1
         with:
           output: swagger-ui
-          spec-file: docs/openapi.yaml
+          spec-file: server/docs/openapi.yaml
 
       - name: Validate OpenAPI definition
-        run: go run github.com/getkin/kin-openapi/cmd/validate@latest -- docs/openapi.yaml
+        run: go run github.com/getkin/kin-openapi/cmd/validate@latest -- server/docs/openapi.yaml
 
       - name: Upload Documents
         uses: actions/upload-pages-artifact@v3
