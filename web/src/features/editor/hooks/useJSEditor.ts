@@ -20,20 +20,20 @@ import {
 } from "preact/hooks";
 
 type UseJSEditorProps = {
-	doc: string;
-	setDoc: Dispatch<StateUpdater<string>>;
+	code: string;
+	setCode: Dispatch<StateUpdater<string>>;
 };
 
-export const useJSEditor = ({ doc, setDoc }: UseJSEditorProps) => {
+export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 	const editor = useRef(null);
 	const [container, setContainer] = useState<HTMLDivElement>();
 	const [view, setView] = useState<EditorView>();
 
 	const editorStyle = useMemo(() => {
 		return EditorView.theme({
-			'&.cm-editor': {
-        outline: 'none',
-      },
+			"&.cm-editor": {
+				outline: "none",
+			},
 			"&.cm-editor .cm-scroller": {
 				fontFamily: `'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace, 'Segoe UI Emoji'`,
 				"-webkit-font-smoothing": "antialiased",
@@ -54,10 +54,10 @@ export const useJSEditor = ({ doc, setDoc }: UseJSEditorProps) => {
 	const updateListener = useMemo(() => {
 		return EditorView.updateListener.of((update: ViewUpdate) => {
 			if (update.docChanged) {
-				setDoc(update.state.doc.toString());
+				setCode(update.state.doc.toString());
 			}
 		});
-	}, [setDoc]);
+	}, [setCode]);
 
 	// wrap extensions
 	const extensions = useMemo(() => {
@@ -85,7 +85,7 @@ export const useJSEditor = ({ doc, setDoc }: UseJSEditorProps) => {
 	useEffect(() => {
 		if (!view && container) {
 			const state = EditorState.create({
-				doc,
+				doc: code,
 				extensions,
 			});
 			const viewCurrent = new EditorView({
@@ -94,10 +94,10 @@ export const useJSEditor = ({ doc, setDoc }: UseJSEditorProps) => {
 			});
 			setView(viewCurrent);
 		}
-	}, [doc, extensions, container]);
+	}, [code, extensions, container]);
 
-  useLayoutEffect(() => {
-    if(view) {
+	useLayoutEffect(() => {
+		if (view) {
 			const minNumOfLines = 20;
 			const currentNumOfLines = view.state.doc.lines;
 			const currentStr = view.state.doc.toString();
@@ -113,8 +113,8 @@ export const useJSEditor = ({ doc, setDoc }: UseJSEditorProps) => {
 			view.dispatch({
 				changes: { from: currentStr.length, insert: appendLines },
 			});
-    }
-  }, [view, doc])
+		}
+	}, [view, code]);
 
 	return {
 		editor,
