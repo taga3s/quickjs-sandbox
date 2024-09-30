@@ -7,5 +7,8 @@ export default defineConfig({
   plugins: [preact(), wasm()],
   build: {
     target: 'esnext',
+  },
+  optimizeDeps: {
+    exclude: ["quickjs-emscripten"],
   }
 })
