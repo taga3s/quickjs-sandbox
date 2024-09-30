@@ -2,7 +2,7 @@ import { useState } from "preact/hooks";
 import editorStyle from "./Editor.module.css";
 import { useJSEditor } from "./hooks/useJSEditor";
 import { useRunCode } from "./hooks/useRunCode";
-import { FC } from "preact/compat";
+import type { FC } from "preact/compat";
 
 type Props = {
 	handleLogger: (messages: string[]) => void;
@@ -21,7 +21,7 @@ const Editor: FC<Props> = ({ handleLogger }) => {
 	return (
 		<div className={editorStyle.container}>
 			<div class={editorStyle.buttonGroup}>
-				<button className={editorStyle.runButton} onClick={handleClick}>
+				<button type="button" className={editorStyle.runButton} onClick={handleClick}>
 					Run Code
 				</button>
 			</div>

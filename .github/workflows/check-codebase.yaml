@@ -1,0 +1,31 @@
+name: check-codebase
+
+on:
+  push:
+    paths:
+      - "web/**"
+
+permissions:
+  contents: read
+
+jobs:
+  check-codebase:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          version: 1.1.26
+
+      - name: Install deps
+        run: bun install
+
+      - name: Run lint
+        run: bun lint
+
+      - name: Run format
+        run: bun format

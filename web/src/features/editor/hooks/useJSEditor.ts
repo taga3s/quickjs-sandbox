@@ -7,11 +7,11 @@ import {
 import { javascript } from "@codemirror/lang-javascript";
 import { indentUnit } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
-import { EditorView, keymap, ViewUpdate } from "@codemirror/view";
+import { EditorView, keymap, type ViewUpdate } from "@codemirror/view";
 import { basicSetup } from "codemirror";
 import {
-	Dispatch,
-	StateUpdater,
+	type Dispatch,
+	type StateUpdater,
 	useEffect,
 	useLayoutEffect,
 	useMemo,
@@ -74,13 +74,13 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 			EditorState.tabSize.of(4),
 			javascript(),
 		];
-	}, [editorStyle, view]);
+	}, [updateListener, editorStyle]);
 
 	useEffect(() => {
 		if (editor.current) {
 			setContainer(editor.current);
 		}
-	}, [setContainer]);
+	}, []);
 
 	useEffect(() => {
 		if (!view && container) {
@@ -94,7 +94,7 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 			});
 			setView(viewCurrent);
 		}
-	}, [code, extensions, container]);
+	}, [view, code, extensions, container]);
 
 	useLayoutEffect(() => {
 		if (view) {
@@ -114,7 +114,7 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 				changes: { from: currentStr.length, insert: appendLines },
 			});
 		}
-	}, [view, code]);
+	}, [view, view?.state.doc]);
 
 	return {
 		editor,

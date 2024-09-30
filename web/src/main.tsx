@@ -2,4 +2,7 @@ import "../src/styles/reset.css";
 import { render } from "preact";
 import { App } from "./app.tsx";
 
-render(<App />, document.getElementById("app")!);
+const app = document.getElementById("app");
+if (app) {
+  render(<App />, app);
+}
