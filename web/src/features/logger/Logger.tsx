@@ -1,5 +1,5 @@
 import { FC } from "preact/compat";
-import loggerStyle from "./styles/logger.module.css";
+import loggerStyle from "./Logger.module.css";
 
 type Props = {
 	logger: string[];

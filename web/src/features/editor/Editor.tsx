@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import editorStyle from "./styles/editor.module.css";
+import editorStyle from "./Editor.module.css";
 import { useJSEditor } from "./hooks/useJSEditor";
 import { useRunCode } from "./hooks/useRunCode";
 import { FC } from "preact/compat";
