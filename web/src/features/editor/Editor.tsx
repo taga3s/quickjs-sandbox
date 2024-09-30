@@ -4,12 +4,18 @@ import { useJSEditor } from "./hooks/useJSEditor";
 import { useRunCode } from "./hooks/useRunCode";
 import type { FC } from "preact/compat";
 
+const INITIAL_CODE = `// let's try some code
+const add = (a, b) => a + b;
+const result = add(1, 2);
+console.log(result);
+`;
+
 type Props = {
 	handleLogger: (messages: string[]) => void;
 };
 
 const Editor: FC<Props> = ({ handleLogger }) => {
-	const [code, setCode] = useState<string>("");
+	const [code, setCode] = useState<string>(INITIAL_CODE);
 	const { editor } = useJSEditor({ code, setCode });
 	const { runJS } = useRunCode();
 
@@ -21,7 +27,11 @@ const Editor: FC<Props> = ({ handleLogger }) => {
 	return (
 		<div className={editorStyle.container}>
 			<div class={editorStyle.buttonGroup}>
-				<button type="button" className={editorStyle.runButton} onClick={handleClick}>
+				<button
+					type="button"
+					className={editorStyle.runButton}
+					onClick={handleClick}
+				>
 					Run Code
 				</button>
 			</div>
