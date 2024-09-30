@@ -1,16 +1,21 @@
 import { useState } from "preact/hooks";
-import editorStyle from "./styles/Editor.module.css";
+import editorStyle from "./styles/editor.module.css";
 import { useJSEditor } from "./hooks/useJSEditor";
 import { useRunCode } from "./hooks/useRunCode";
+import { FC } from "preact/compat";
 
-const Editor = () => {
+type Props = {
+	handleLogger: (messages: string[]) => void;
+};
+
+const Editor: FC<Props> = ({ handleLogger }) => {
 	const [code, setCode] = useState<string>("");
 	const { editor } = useJSEditor({ code, setCode });
 	const { runJS } = useRunCode();
 
 	const handleClick = async () => {
 		const evaluated = await runJS({ code });
-		console.log(evaluated);
+		handleLogger(evaluated);
 	};
 
 	return (

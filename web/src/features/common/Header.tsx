@@ -6,7 +6,10 @@ const Header: FC = () => {
 	return (
 		<header className={headerStyle.wrapper}>
 			<h1 className={headerStyle.title}>js_playground</h1>
-			<a className={headerStyle.githubIcon} href="https://github.com/taga3s/js-playground">
+			<a
+				className={headerStyle.githubIcon}
+				href="https://github.com/taga3s/js-playground"
+			>
 				<GitHubIcon />
 			</a>
 		</header>
