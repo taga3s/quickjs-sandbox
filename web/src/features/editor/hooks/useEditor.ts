@@ -31,6 +31,9 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 
 	const editorStyle = useMemo(() => {
 		return EditorView.theme({
+			"&": {
+				backgroundColor: "#ffffff",
+			},
 			"&.cm-editor": {
 				outline: "none",
 			},
@@ -44,9 +47,6 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 			},
 			".cm-gutterElement": {
 				textAlign: "center !important",
-			},
-			".cm-content": {
-				backgroundColor: "#ffffff",
 			},
 		});
 	}, []);
