@@ -1,4 +1,4 @@
-import type { FC } from "preact/compat";
+import { type FC } from "preact/compat";
 import loggerStyle from "./Logger.module.css";
 
 type Props = {
@@ -6,10 +6,16 @@ type Props = {
 };
 
 const Logger: FC<Props> = ({ logger }) => {
+	const loggerRef = (node: HTMLDivElement | null) => {
+		if (node) {
+			node.scrollTop = node.scrollHeight;
+		}
+	};
+
 	return (
 		<div className={loggerStyle.container}>
 			<span className={loggerStyle.title}>Logger</span>
-			<div className={loggerStyle.inner}>
+			<div className={loggerStyle.inner} ref={loggerRef}>
 				{logger.map((message, index) => (
 					<span key={index} className={loggerStyle.message}>
 						{message}
