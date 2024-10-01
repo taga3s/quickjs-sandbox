@@ -6,7 +6,7 @@ import { Logger } from "./features/logger/Logger";
 import { useState } from "preact/hooks";
 
 export function App() {
-	const [logger, setLogger] = useState<string[]>([""]);
+	const [logger, setLogger] = useState<string[]>([]);
 
 	const handleLogger = (messages: string[]) => {
 		setLogger((prev) => [...prev, ...messages]);
