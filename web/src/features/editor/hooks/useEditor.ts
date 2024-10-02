@@ -45,6 +45,9 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 				lineHeight: "1.8",
 				color: "#000000",
 			},
+			".cm-selectionMatch": {
+				backgroundColor: "transparent",
+			},
 			".cm-gutterElement": {
 				textAlign: "center !important",
 			},

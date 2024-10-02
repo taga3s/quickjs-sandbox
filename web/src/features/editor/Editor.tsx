@@ -35,6 +35,12 @@ const Editor: FC<Props> = ({ handleLogger }) => {
 				>
 					Run Code
 				</button>
+				{/* <button
+					type="button"
+					className={editorStyle.runButton}
+				>
+					Share with URL
+				</button> */}
 			</div>
 			<div ref={editor} />
 		</div>
