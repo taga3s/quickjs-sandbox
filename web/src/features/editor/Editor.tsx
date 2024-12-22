@@ -12,17 +12,17 @@ console.log(result);
 `;
 
 type Props = {
-	handleLogger: (messages: string[]) => void;
+	handleLoggerMessages: (messages: string[]) => void;
 };
 
-const Editor: FC<Props> = ({ handleLogger }) => {
+const Editor: FC<Props> = ({ handleLoggerMessages }) => {
 	const [code, setCode] = useState<string>(INITIAL_CODE);
 	const { editor } = useJSEditor({ code, setCode });
 	const { runJS } = useRunCode();
 
 	const handleClick = async () => {
-		const evaluated = await runJS({ code });
-		handleLogger(evaluated);
+		const texts = await runJS({ code });
+		handleLoggerMessages(texts);
 	};
 
 	return (
@@ -35,12 +35,6 @@ const Editor: FC<Props> = ({ handleLogger }) => {
 				>
 					Run Code
 				</button>
-				{/* <button
-					type="button"
-					className={editorStyle.runButton}
-				>
-					Share with URL
-				</button> */}
 			</div>
 			<div ref={editor} />
 		</div>

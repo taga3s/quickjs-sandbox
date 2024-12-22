@@ -23,6 +23,8 @@
 }
 
 .message {
-	padding: 6px 10px;
+	display: flex;
+	justify-content: space-between;
+	padding: 8px;
 	border-bottom: 1px dashed #b4b4b4;
 }

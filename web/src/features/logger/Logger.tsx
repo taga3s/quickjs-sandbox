@@ -1,11 +1,12 @@
 import type { FC } from "preact/compat";
 import loggerStyle from "./Logger.module.css";
+import type { TLogger } from "../../app";
 
 type Props = {
-	logger: string[];
+	loggerMessages: TLogger[];
 };
 
-const Logger: FC<Props> = ({ logger }) => {
+const Logger: FC<Props> = ({ loggerMessages }) => {
 	const loggerRef = (node: HTMLDivElement | null) => {
 		if (node) {
 			node.scrollTop = node.scrollHeight;
@@ -16,11 +17,14 @@ const Logger: FC<Props> = ({ logger }) => {
 		<div className={loggerStyle.container}>
 			<span className={loggerStyle.title}>▶︎ LOGGER</span>
 			<div className={loggerStyle.inner} ref={loggerRef}>
-				{logger.map((message, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<span key={index} className={loggerStyle.message}>
-						{message}
-					</span>
+				{loggerMessages.map((message, index) => (
+					<div
+						key={`${message.timestamp.toLocaleDateString()}${index}`}
+						className={loggerStyle.message}
+					>
+						<span>{message.text}</span>
+						<span>{message.timestamp.toLocaleTimeString()}</span>
+					</div>
 				))}
 			</div>
 		</div>
