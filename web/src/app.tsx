@@ -14,10 +14,9 @@ export function App() {
 	const [loggerMessages, setLoggerMessages] = useState<TLogger[]>([]);
 
 	const handleLoggerMessages = (texts: string[]) => {
-		const now = new Date();
 		const newMessages = texts.map((text) => ({
 			text: text,
-			timestamp: now,
+			timestamp: new Date(),
 		}));
 		setLoggerMessages((prev) => [...prev, ...newMessages]);
 	};

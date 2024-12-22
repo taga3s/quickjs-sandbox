@@ -5,9 +5,11 @@ import { useRunCode } from "./hooks/useRunCode";
 import type { FC } from "preact/compat";
 
 //TODO: use indexedDB or localStorage to store and pick up the code
-const INITIAL_CODE = `// let's try some code
+const INITIAL_CODE = `// let's try some code here
 const add = (a, b) => a + b;
 const result = add(1, 2);
+
+// output the result
 console.log(result);
 `;
 
