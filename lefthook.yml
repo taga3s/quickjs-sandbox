@@ -1,0 +1,16 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      root: "web/"
+      glob: "*.{js,ts,jsx,tsx}"
+      run: bun format
+    lint:
+      root: "web/"
+      glob: "*.{js,ts,jsx,tsx}"
+      run: bun lint
