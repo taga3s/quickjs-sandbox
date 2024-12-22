@@ -1,6 +1,6 @@
 import type { FC } from "preact/compat";
 import headerStyle from "./Header.module.css";
-import { GitHubIcon } from "./icons/Github";
+import { GitHubIcon } from "./icons/GitHubIcon";
 
 const Header: FC = () => {
 	return (

@@ -1,4 +1,4 @@
-import "../src/styles/reset.css";
+import "../src/reset.css";
 import { render } from "preact";
 import { App } from "./app.tsx";
 

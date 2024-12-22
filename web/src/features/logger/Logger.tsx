@@ -1,9 +1,9 @@
 import type { FC } from "preact/compat";
 import loggerStyle from "./Logger.module.css";
-import type { TLogger } from "../../app";
+import type { TLoggerMessage } from "../../app";
 
 type Props = {
-	loggerMessages: TLogger[];
+	loggerMessages: TLoggerMessage[];
 };
 
 const Logger: FC<Props> = ({ loggerMessages }) => {

@@ -1,17 +1,17 @@
-import AppLayout from "./styles/app.module.css";
+import AppLayout from "./app.module.css";
 
 import { Header } from "./features/common/Header";
 import { Editor } from "./features/editor/Editor";
 import { Logger } from "./features/logger/Logger";
 import { useState } from "preact/hooks";
 
-export type TLogger = {
+export type TLoggerMessage = {
 	text: string;
 	timestamp: Date;
 };
 
 export function App() {
-	const [loggerMessages, setLoggerMessages] = useState<TLogger[]>([]);
+	const [loggerMessages, setLoggerMessages] = useState<TLoggerMessage[]>([]);
 
 	const handleLoggerMessages = (texts: string[]) => {
 		const newMessages = texts.map((text) => ({
