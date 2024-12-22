@@ -1,4 +1,4 @@
-import { type FC } from "preact/compat";
+import type { FC } from "preact/compat";
 import loggerStyle from "./Logger.module.css";
 
 type Props = {
@@ -14,9 +14,10 @@ const Logger: FC<Props> = ({ logger }) => {
 
 	return (
 		<div className={loggerStyle.container}>
-			<span className={loggerStyle.title}>Logger</span>
+			<span className={loggerStyle.title}>▶︎ LOGGER</span>
 			<div className={loggerStyle.inner} ref={loggerRef}>
 				{logger.map((message, index) => (
+					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					<span key={index} className={loggerStyle.message}>
 						{message}
 					</span>

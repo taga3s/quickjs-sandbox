@@ -16,7 +16,9 @@ export function App() {
 		<>
 			<Header />
 			<div className={AppLayout.container}>
-				<Editor handleLogger={handleLogger} />
+				<div class={AppLayout.editor}>
+					<Editor handleLogger={handleLogger} />
+				</div>
 				<Logger logger={logger} />
 			</div>
 		</>
