@@ -4,8 +4,9 @@ import { useJSEditor } from "./hooks/useEditor";
 import { useRunCode } from "./hooks/useRunCode";
 import type { FC } from "preact/compat";
 
-//TODO: use indexedDB or localStorage to store and pick up the code
-const INITIAL_CODE = `// let's try some code here
+const INITIAL_CODE =
+	localStorage.getItem("code") ??
+	`// let's try some code here
 const add = (a, b) => a + b;
 const result = add(1, 2);
 
@@ -24,6 +25,7 @@ const Editor: FC<Props> = ({ handleAddLoggerMessages }) => {
 
 	const handleClick = async () => {
 		const results = await runJS({ code });
+
 		handleAddLoggerMessages(results);
 	};
 

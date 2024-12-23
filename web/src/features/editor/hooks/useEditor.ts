@@ -58,6 +58,7 @@ export const useJSEditor = ({ code, setCode }: UseJSEditorProps) => {
 		return EditorView.updateListener.of((update: ViewUpdate) => {
 			if (update.docChanged) {
 				setCode(update.state.doc.toString());
+				localStorage.setItem("code", update.state.doc.toString());
 			}
 		});
 	}, [setCode]);
