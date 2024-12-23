@@ -13,7 +13,7 @@ export type TLoggerMessage = {
 export function App() {
 	const [loggerMessages, setLoggerMessages] = useState<TLoggerMessage[]>([]);
 
-	const handleLoggerMessages = (texts: string[]) => {
+	const handleAddLoggerMessages = (texts: string[]) => {
 		const newMessages = texts.map((text) => ({
 			text: text,
 			timestamp: new Date(),
@@ -26,7 +26,7 @@ export function App() {
 			<Header />
 			<div className={AppLayout.container}>
 				<div class={AppLayout.editor}>
-					<Editor handleLoggerMessages={handleLoggerMessages} />
+					<Editor handleAddLoggerMessages={handleAddLoggerMessages} />
 				</div>
 				<Logger loggerMessages={loggerMessages} />
 			</div>

@@ -14,17 +14,17 @@ console.log(result);
 `;
 
 type Props = {
-	handleLoggerMessages: (messages: string[]) => void;
+	handleAddLoggerMessages: (messages: string[]) => void;
 };
 
-const Editor: FC<Props> = ({ handleLoggerMessages }) => {
+const Editor: FC<Props> = ({ handleAddLoggerMessages }) => {
 	const [code, setCode] = useState<string>(INITIAL_CODE);
 	const { editor } = useJSEditor({ code, setCode });
 	const { runJS } = useRunCode();
 
 	const handleClick = async () => {
-		const texts = await runJS({ code });
-		handleLoggerMessages(texts);
+		const results = await runJS({ code });
+		handleAddLoggerMessages(results);
 	};
 
 	return (
