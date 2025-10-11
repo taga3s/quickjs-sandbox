@@ -2,8 +2,6 @@ name: check-codebase
 
 on:
   push:
-    paths:
-      - "web/**"
 
 permissions:
   contents: read

@@ -1,7 +1,31 @@
-# js-playground
+# quickjs-playground
 
-This project is deployed at https://taga3s-js-playground.vercel.app/
+## tech stack
+- Preact
+- TypeScript
+- css modules
+- CodeMirror
+- quickjs-emscripten
+- bun
 
-## projects
+## npm commands
 
-- [web](https://github.com/taga3s/js-playground/tree/main/web)
+- install modules
+```
+$ bun install
+```
+
+- start dev
+```
+$ bun dev
+```
+
+- format
+```
+$ bun format
+```
+
+- lint
+```
+$ bun lint
+```
