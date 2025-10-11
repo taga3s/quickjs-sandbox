@@ -1,6 +1,6 @@
 import type { FC } from "preact/compat";
 import headerStyle from "./Header.module.css";
-import { GitHubIcon } from "./icons/GitHubIcon";
+import { GitHub } from "./icons/GitHub";
 
 const Header: FC = () => {
 	return (
@@ -10,7 +10,7 @@ const Header: FC = () => {
 				className={headerStyle.githubIcon}
 				href="https://github.com/taga3s/quickjs-sandbox"
 			>
-				<GitHubIcon />
+				<GitHub />
 			</a>
 		</header>
 	);

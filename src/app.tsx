@@ -5,20 +5,20 @@ import { Editor } from "./features/editor/Editor";
 import { Logger } from "./features/logger/Logger";
 import { useState } from "preact/hooks";
 
-export type TLoggerMessage = {
+export type TLog = {
 	text: string;
 	timestamp: Date;
 };
 
 export function App() {
-	const [loggerMessages, setLoggerMessages] = useState<TLoggerMessage[]>([]);
+	const [logs, setLogs] = useState<TLog[]>([]);
 
-	const handleAddLoggerMessages = (texts: string[]) => {
-		const newMessages = texts.map((text) => ({
+	const handleAddLoggerMessages = (logs: string[]) => {
+		const newLogs = logs.map((text) => ({
 			text: text,
 			timestamp: new Date(),
 		}));
-		setLoggerMessages((prev) => [...prev, ...newMessages]);
+		setLogs((prev) => [...prev, ...newLogs]);
 	};
 
 	return (
@@ -28,7 +28,7 @@ export function App() {
 				<div class={AppLayout.editor}>
 					<Editor handleAddLoggerMessages={handleAddLoggerMessages} />
 				</div>
-				<Logger loggerMessages={loggerMessages} />
+				<Logger logs={logs} />
 			</div>
 		</>
 	);

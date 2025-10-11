@@ -4,7 +4,7 @@ import { useJSEditor } from "./hooks/useEditor";
 import { useRunCode } from "./hooks/useRunCode";
 import type { FC } from "preact/compat";
 
-const INITIAL_CODE =
+const EXAMPLE_CODE =
 	localStorage.getItem("code") ??
 	`// let's try some code here
 const add = (a, b) => a + b;
@@ -19,14 +19,13 @@ type Props = {
 };
 
 const Editor: FC<Props> = ({ handleAddLoggerMessages }) => {
-	const [code, setCode] = useState<string>(INITIAL_CODE);
+	const [code, setCode] = useState<string>(EXAMPLE_CODE);
 	const { editor } = useJSEditor({ code, setCode });
 	const { runJS } = useRunCode();
 
 	const handleClick = async () => {
-		const results = await runJS({ code });
-
-		handleAddLoggerMessages(results);
+		const result = await runJS({ code });
+		handleAddLoggerMessages(result);
 	};
 
 	return (
