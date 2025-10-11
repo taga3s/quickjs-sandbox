@@ -1,4 +1,4 @@
-# quickjs-playground
+# quickjs-sandbox
 
 ## tech stack
 - Preact
