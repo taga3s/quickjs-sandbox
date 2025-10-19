@@ -2,7 +2,7 @@
 
 A sandboxed QuickJS environment.
 
-## npm commands
+## commands
 
 - install modules
 ```
