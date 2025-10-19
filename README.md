@@ -1,12 +1,6 @@
 # quickjs-sandbox
 
-## tech stack
-- Preact
-- TypeScript
-- css modules
-- CodeMirror
-- quickjs-emscripten
-- bun
+A sandboxed QuickJS environment.
 
 ## npm commands
 
